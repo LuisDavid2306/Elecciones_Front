@@ -1,0 +1,37 @@
+<div class="container mt-4">
+
+    <h2>Auditoría</h2>
+
+    <table class="table table-bordered">
+
+        <thead>
+
+            <tr>
+
+                <th>ID</th>
+                <th>DNI</th>
+                <th>Elección</th>
+                <th>Candidato</th>
+                <th>Fecha Registro</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr *ngFor="let a of auditorias">
+
+                <td>{{a.id}}</td>
+                <td>{{a.dni}}</td>
+                <td>{{a.eleccionId}}</td>
+                <td>{{a.candidatoId}}</td>
+                <td>{{a.fechaRegistro}}</td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>

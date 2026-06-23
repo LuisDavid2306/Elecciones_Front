@@ -1,0 +1,82 @@
+<div class="container mt-4">
+
+    <h2>Elecciones</h2>
+
+    <div class="card mb-4">
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <input
+                        class="form-control"
+                        placeholder="Nombre"
+                        [(ngModel)]="nombre">
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <input
+                        type="date"
+                        class="form-control"
+                        [(ngModel)]="fechaInicio">
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <input
+                        type="date"
+                        class="form-control"
+                        [(ngModel)]="fechaFin">
+
+                </div>
+
+            </div>
+
+            <button
+                class="btn btn-success mt-3"
+                (click)="guardar()">
+
+                Guardar
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <table class="table table-bordered">
+
+        <thead>
+
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Inicio</th>
+                <th>Fin</th>
+                <th>Estado</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr *ngFor="let e of elecciones">
+
+                <td>{{e.id}}</td>
+                <td>{{e.nombre}}</td>
+                <td>{{e.fechaInicio}}</td>
+                <td>{{e.fechaFin}}</td>
+                <td>{{e.estado}}</td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>

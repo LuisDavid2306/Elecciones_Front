@@ -1,0 +1,97 @@
+<div class="container mt-4">
+
+    <h2>Candidatos</h2>
+
+    <div class="card mb-4">
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <input
+                        class="form-control"
+                        placeholder="Nombre"
+                        [(ngModel)]="nombres">
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <input
+                        class="form-control"
+                        placeholder="Partido"
+                        [(ngModel)]="partido">
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <select
+                        class="form-select"
+                        [(ngModel)]="eleccionId">
+
+                        <option [ngValue]="0">
+
+                            Seleccione elección
+
+                        </option>
+
+                        <option
+                            *ngFor="let e of elecciones"
+                            [ngValue]="e.id">
+
+                            {{e.nombre}}
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <button
+                class="btn btn-warning mt-3"
+                (click)="guardar()">
+
+                Guardar
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <table class="table table-bordered">
+
+        <thead>
+
+            <tr>
+
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Partido</th>
+                <th>Elección</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr *ngFor="let c of candidatos">
+
+                <td>{{c.id}}</td>
+                <td>{{c.nombres}}</td>
+                <td>{{c.partido}}</td>
+                <td>{{c.eleccionId}}</td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>

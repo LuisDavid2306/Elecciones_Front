@@ -1,0 +1,94 @@
+<div class="container mt-4">
+
+    <h2>Ciudadanos</h2>
+
+    <div class="card mb-4">
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-3">
+
+                    <input
+                        class="form-control"
+                        placeholder="DNI"
+                        [(ngModel)]="dni">
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <input
+                        class="form-control"
+                        placeholder="Nombres"
+                        [(ngModel)]="nombres">
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <input
+                        class="form-control"
+                        placeholder="Apellidos"
+                        [(ngModel)]="apellidos">
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <input
+                        class="form-control"
+                        placeholder="Correo"
+                        [(ngModel)]="correo">
+
+                </div>
+
+            </div>
+
+            <button
+                class="btn btn-primary mt-3"
+                (click)="guardar()">
+
+                Guardar
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <table class="table table-bordered">
+
+        <thead>
+
+            <tr>
+
+                <th>ID</th>
+                <th>DNI</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Correo</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr
+                *ngFor="let c of ciudadanos">
+
+                <td>{{ c.id }}</td>
+                <td>{{ c.dni }}</td>
+                <td>{{ c.nombres }}</td>
+                <td>{{ c.apellidos }}</td>
+                <td>{{ c.correo }}</td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>

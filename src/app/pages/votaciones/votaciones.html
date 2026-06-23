@@ -1,0 +1,114 @@
+<div class="container mt-4">
+
+    <h2>Votaciones</h2>
+
+    <div class="card mb-4">
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <input
+                        class="form-control"
+                        placeholder="DNI"
+                        [(ngModel)]="dni">
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <select
+                        class="form-select"
+                        [(ngModel)]="eleccionId">
+
+                        <option [ngValue]="0">
+
+                            Seleccione elección
+
+                        </option>
+
+                        <option
+                            *ngFor="let e of elecciones"
+                            [ngValue]="e.id">
+
+                            {{e.nombre}}
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <select
+                        class="form-select"
+                        [(ngModel)]="candidatoId">
+
+                        <option [ngValue]="0">
+
+                            Seleccione candidato
+
+                        </option>
+
+                        <option
+                            *ngFor="let c of candidatos"
+                            [ngValue]="c.id">
+
+                            {{c.nombres}}
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <button
+                class="btn btn-danger mt-3"
+                (click)="votar()">
+
+                Registrar Voto
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <table class="table table-bordered">
+
+        <thead>
+
+            <tr>
+
+                <th>ID</th>
+                <th>DNI</th>
+                <th>Elección</th>
+                <th>Candidato</th>
+                <th>Fecha</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr *ngFor="let v of votos">
+
+                <td>{{v.id}}</td>
+                <td>{{v.dni}}</td>
+                <td>{{v.eleccionId}}</td>
+                <td>{{v.candidatoId}}</td>
+                <td>{{v.fechaVoto}}</td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
