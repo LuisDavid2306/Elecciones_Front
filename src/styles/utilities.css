@@ -1,0 +1,157 @@
+/* Glassmorphism panel */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Premium Card */
+.premium-card {
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(0, 55, 112, 0.05);
+  transition: var(--transition-normal);
+  padding: 1.5rem;
+}
+
+.premium-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Customized Bootstrap Buttons to match ONPE premium styling */
+.btn {
+  border-radius: var(--radius-md) !important;
+  font-weight: 500 !important;
+  padding: 0.6rem 1.2rem !important;
+  transition: var(--transition-fast) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+}
+
+.btn-primary {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  color: var(--color-white) !important;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+  background-color: var(--color-primary-light) !important;
+  border-color: var(--color-primary-light) !important;
+}
+
+.btn-success {
+  background-color: var(--color-success) !important;
+  border-color: var(--color-success) !important;
+  color: var(--color-white) !important;
+}
+
+.btn-success:hover, .btn-success:focus {
+  background-color: #156d24 !important;
+  border-color: #156d24 !important;
+}
+
+.btn-danger {
+  background-color: var(--color-error) !important;
+  border-color: var(--color-error) !important;
+  color: var(--color-white) !important;
+}
+
+.btn-danger:hover, .btn-danger:focus {
+  background-color: #bd1d1d !important;
+  border-color: #bd1d1d !important;
+}
+
+.btn-warning {
+  background-color: var(--color-accent) !important;
+  border-color: var(--color-accent) !important;
+  color: var(--color-white) !important;
+}
+
+.btn-warning:hover, .btn-warning:focus {
+  background-color: #d98c0b !important;
+  border-color: #d98c0b !important;
+}
+
+/* Form Controls */
+.form-control, .form-select {
+  border-radius: var(--radius-md) !important;
+  border: 1.5px solid var(--color-neutral-300) !important;
+  padding: 0.6rem 1rem !important;
+  transition: var(--transition-fast) !important;
+  font-family: inherit !important;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--color-primary-light) !important;
+  box-shadow: 0 0 0 3px rgba(0, 87, 168, 0.15) !important;
+  outline: none !important;
+}
+
+/* Badge styling */
+.badge-custom {
+  padding: 0.35em 0.65em;
+  font-size: 0.75em;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+}
+
+.badge-custom-success {
+  background-color: var(--color-success-light);
+  color: var(--color-success);
+}
+
+.badge-custom-danger {
+  background-color: var(--color-error-light);
+  color: var(--color-error);
+}
+
+.badge-custom-warning {
+  background-color: var(--color-warning-light);
+  color: var(--color-warning);
+}
+
+.badge-custom-info {
+  background-color: var(--color-primary-pale);
+  color: var(--color-primary);
+}
+
+/* Table styling */
+.table-premium {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-neutral-300);
+}
+
+.table-premium th {
+  background-color: var(--color-neutral-100);
+  color: var(--color-primary-dark);
+  font-weight: 600;
+  padding: 1rem;
+  border-bottom: 2px solid var(--color-neutral-300);
+  text-align: left;
+}
+
+.table-premium td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-neutral-100);
+  color: var(--color-neutral-700);
+  vertical-align: middle;
+}
+
+.table-premium tr:last-child td {
+  border-bottom: none;
+}
+
+.table-premium tbody tr:hover {
+  background-color: rgba(0, 55, 112, 0.02);
+}

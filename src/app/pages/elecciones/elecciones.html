@@ -1,82 +1,112 @@
-<div class="container mt-4">
+<div class="page-container animate-fade-in">
+  <div class="page-header mb-4">
+    <div class="header-info">
+      <h1>Gestión de Elecciones 📅</h1>
+      <p class="text-muted">Crear y monitorear los procesos de sufragio nacional.</p>
+    </div>
+  </div>
 
-    <h2>Elecciones</h2>
+  <div class="row g-4">
+    <!-- Formulario para Crear Elección -->
+    <div class="col-lg-4">
+      <div class="premium-card">
+        <h3 class="card-title mb-4">
+          <span class="material-icons">event</span>
+          Nueva Elección
+        </h3>
 
-    <div class="card mb-4">
+        <form (ngSubmit)="guardar()" #eleccionForm="ngForm">
+          <div class="mb-3">
+            <label class="form-label" for="nombre">Nombre de la Elección</label>
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              class="form-control"
+              placeholder="Ej. Elecciones Municipales 2026"
+              [(ngModel)]="nombre"
+              required>
+          </div>
 
-        <div class="card-body">
+          <div class="mb-3">
+            <label class="form-label" for="fechaInicio">Fecha de Inicio</label>
+            <input
+              type="date"
+              id="fechaInicio"
+              name="fechaInicio"
+              class="form-control"
+              [(ngModel)]="fechaInicio"
+              required>
+          </div>
 
-            <div class="row">
+          <div class="mb-4">
+            <label class="form-label" for="fechaFin">Fecha de Fin</label>
+            <input
+              type="date"
+              id="fechaFin"
+              name="fechaFin"
+              class="form-control"
+              [(ngModel)]="fechaFin"
+              required>
+          </div>
 
-                <div class="col-md-4">
-
-                    <input
-                        class="form-control"
-                        placeholder="Nombre"
-                        [(ngModel)]="nombre">
-
-                </div>
-
-                <div class="col-md-4">
-
-                    <input
-                        type="date"
-                        class="form-control"
-                        [(ngModel)]="fechaInicio">
-
-                </div>
-
-                <div class="col-md-4">
-
-                    <input
-                        type="date"
-                        class="form-control"
-                        [(ngModel)]="fechaFin">
-
-                </div>
-
-            </div>
-
-            <button
-                class="btn btn-success mt-3"
-                (click)="guardar()">
-
-                Guardar
-
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary flex-fill" [disabled]="!eleccionForm.valid">
+              <span class="material-icons">save</span>
+              Crear
             </button>
-
-        </div>
-
+            <button type="button" class="btn btn-secondary" (click)="limpiar()">
+              <span class="material-icons">clear</span>
+              Limpiar
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
 
-    <table class="table table-bordered">
+    <!-- Lista de Elecciones -->
+    <div class="col-lg-8">
+      <div class="premium-card h-100">
+        <h3 class="card-title mb-4">
+          <span class="material-icons">ballot</span>
+          Procesos Electorales
+        </h3>
 
-        <thead>
-
-            <tr>
+        <div class="table-responsive">
+          <table class="table-premium">
+            <thead>
+              <tr>
                 <th>ID</th>
                 <th>Nombre</th>
-                <th>Inicio</th>
-                <th>Fin</th>
+                <th>Vigencia</th>
                 <th>Estado</th>
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-            <tr *ngFor="let e of elecciones">
-
-                <td>{{e.id}}</td>
-                <td>{{e.nombre}}</td>
-                <td>{{e.fechaInicio}}</td>
-                <td>{{e.fechaFin}}</td>
-                <td>{{e.estado}}</td>
-
-            </tr>
-
-        </tbody>
-
-    </table>
-
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let e of elecciones">
+                <td><strong>#{{ e.id }}</strong></td>
+                <td>{{ e.nombre }}</td>
+                <td>
+                  <div class="d-flex flex-column text-sm">
+                    <span><strong class="text-muted">Inicio:</strong> {{ e.fechaInicio }}</span>
+                    <span><strong class="text-muted">Fin:</strong> {{ e.fechaFin }}</span>
+                  </div>
+                </td>
+                <td>
+                  <span class="badge-custom badge-custom-success">
+                    {{ e.estado || 'ACTIVA' }}
+                  </span>
+                </td>
+              </tr>
+              <tr *ngIf="elecciones.length === 0">
+                <td colspan="4" class="text-center py-4 text-muted">
+                  No hay procesos electorales registrados.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

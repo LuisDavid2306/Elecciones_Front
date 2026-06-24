@@ -1,0 +1,158 @@
+.page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.page-header h1 {
+  font-size: 1.8rem;
+  color: var(--color-primary-dark);
+  margin-bottom: 0.25rem;
+}
+
+.page-header p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.font-weight-semibold {
+  font-weight: 600;
+}
+
+.font-weight-bold {
+  font-weight: 700;
+}
+
+.font-weight-medium {
+  font-weight: 500;
+}
+
+.fs-3 {
+  font-size: 1.75rem !important;
+}
+
+/* Stat Circle Icons */
+.stat-icon-circle {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-icon-circle .material-icons {
+  font-size: 28px;
+}
+
+.bg-primary-pale {
+  background-color: var(--color-primary-pale);
+  color: var(--color-primary);
+}
+
+.bg-success-light {
+  background-color: var(--color-success-light);
+  color: var(--color-success);
+}
+
+/* Card titles */
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card-title .material-icons {
+  color: var(--color-primary);
+}
+
+/* Custom CSS progress bar chart */
+.progress-bar-wrapper {
+  background-color: var(--color-neutral-100);
+  height: 14px;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 1s ease-in-out;
+}
+
+.cand-name {
+  color: var(--color-neutral-900);
+  font-size: 0.95rem;
+}
+
+.cand-val {
+  color: var(--color-neutral-500);
+  font-size: 0.875rem;
+}
+
+/* Ranking columns styling */
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.ranking-item {
+  background-color: var(--color-neutral-50);
+  border: 1px solid var(--color-neutral-300);
+  transition: var(--transition-fast);
+}
+
+.ranking-item:hover {
+  transform: translateX(4px);
+}
+
+.rank-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  background-color: var(--color-neutral-100);
+  color: var(--color-neutral-700);
+}
+
+/* Specialized styling for podium places */
+.rank-1 {
+  background-color: rgba(245, 166, 35, 0.05);
+  border-color: rgba(245, 166, 35, 0.2);
+}
+
+.rank-1 .rank-badge {
+  background-color: #fff8e1;
+  color: var(--color-accent);
+}
+
+.rank-2 {
+  background-color: rgba(9, 55, 112, 0.02);
+  border-color: rgba(9, 55, 112, 0.1);
+}
+
+.rank-2 .rank-badge {
+  background-color: #eceff1;
+  color: #78909c;
+}
+
+.rank-3 {
+  background-color: rgba(200, 16, 46, 0.02);
+  border-color: rgba(200, 16, 46, 0.1);
+}
+
+.rank-3 .rank-badge {
+  background-color: #efebe9;
+  color: #8d6e63;
+}
+
+.text-sm {
+  font-size: 0.8125rem;
+}
