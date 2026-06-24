@@ -171,8 +171,8 @@
 
       <!-- PASO 3: SELECCIONAR CANDIDATO -->
       <div *ngIf="paso === 3" class="animate-fade-in">
-        <h3 class="text-center mb-2">Seleccione su Candidato</h3>
-        <p class="text-muted text-center mb-4">Haga clic en la tarjeta del candidato por el cual desea sufragar.</p>
+        <h3 class="text-center mb-2">Cédula Oficial de Sufragio</h3>
+        <p class="text-muted text-center mb-4">Marque con una cruz (X) sobre la opción de su preferencia para registrar su sufragio.</p>
         
         <div class="selected-summary bg-white p-3 rounded shadow-sm mb-4 d-flex justify-content-between align-items-center">
           <div>
@@ -185,25 +185,48 @@
           </div>
         </div>
 
-        <div class="row g-4">
-          <div class="col-md-6 col-lg-4" *ngFor="let c of candidatosDeEleccion">
+        <!-- Official ballot wrapper -->
+        <div class="ballot-paper-box">
+          <div class="ballot-header-onpe">
+            <span>ORGANISMO ELECTORAL OFICIAL - CÉDULA DE SUFRAGIO ELECTRÓNICO</span>
+          </div>
+          
+          <div class="ballot-grid-custom">
             <div 
-              class="candidato-select-card premium-card text-center" 
-              [class.selected]="candidatoId === c.id"
+              class="ballot-card-custom" 
+              *ngFor="let c of candidatosDeEleccion"
+              [class.marked]="candidatoId === c.id"
               (click)="seleccionarCandidato(c)">
-              <div class="selected-indicator" *ngIf="candidatoId === c.id">
-                <span class="material-icons">check_circle</span>
+              
+              <!-- Animate cross mark overlay when selected (Signature Interaction) -->
+              <div class="ballot-cross-mark" *ngIf="candidatoId === c.id">
+                <span class="cross-line line-1"></span>
+                <span class="cross-line line-2"></span>
               </div>
-              <div class="candidato-avatar mb-3">
-                <span class="material-icons">person</span>
+              
+              <div class="ballot-candidate-column">
+                <div class="ballot-photo-box">
+                  <span class="material-icons">person</span>
+                </div>
+                <div class="ballot-candidate-details">
+                  <span class="ballot-candidate-num">CANDIDATO #{{ c.id }}</span>
+                  <span class="ballot-candidate-name">{{ c.nombres }}</span>
+                </div>
               </div>
-              <h4>{{ c.nombres }}</h4>
-              <p class="badge-custom badge-custom-info d-inline-block mt-2">{{ c.partido }}</p>
+              
+              <div class="ballot-divider-vertical"></div>
+              
+              <div class="ballot-logo-column">
+                <div class="ballot-logo-box">
+                  <span class="ballot-logo-text">{{ c.partido.substring(0, 2) | uppercase }}</span>
+                </div>
+                <span class="ballot-party-name">{{ c.partido }}</span>
+              </div>
             </div>
           </div>
           
-          <div class="col-12 text-center text-muted py-4" *ngIf="candidatosDeEleccion.length === 0">
-            No hay candidatos inscritos para esta elección.
+          <div class="text-center text-muted py-5" *ngIf="candidatosDeEleccion.length === 0">
+            No hay candidatos inscritos para esta elección en la cédula.
           </div>
         </div>
 

@@ -1,105 +1,127 @@
-<div class="dashboard-container">
-  <!-- Welcome Banner -->
-  <div class="welcome-banner premium-card animate-fade-in">
-    <div class="banner-content">
-      <h1>Panel de Administración Electoral 🗳️</h1>
-      <p>Bienvenido al centro de control de VotoDigital. Desde aquí puede gestionar el padrón electoral, configurar procesos de votación, monitorear candidatos y auditar el sistema en tiempo real.</p>
+<div class="dashboard-container animate-fade-in">
+  <!-- Banner Hero (ONPE Style) -->
+  <section class="banner-hero-onpe premium-card">
+    <div class="hero-left-content">
+      <span class="hero-badge">ELECCIONES GENERALES 2026</span>
+      <h1 class="hero-title">Conozca los procesos y resultados del sufragio</h1>
+      <p class="hero-subtitle">La Oficina Nacional de Procesos Electorales (ONPE) pone a su disposición la cabina de sufragio electrónico y el portal de resultados en tiempo real.</p>
+      
+      <div class="hero-actions">
+        <a routerLink="/votaciones" class="btn btn-primary btn-lg">
+          <span class="material-icons">how_to_vote</span>
+          Ir a Cabina de Voto
+        </a>
+        <a routerLink="/resultados" class="btn btn-warning btn-lg">
+          <span class="material-icons">analytics</span>
+          Ver Resultados
+        </a>
+      </div>
     </div>
-    <div class="banner-icon">
-      <span class="material-icons">query_stats</span>
+    
+    <div class="hero-right-content text-center">
+      <span class="material-icons hero-big-icon animate-pulse-border">ballot</span>
     </div>
-  </div>
+  </section>
 
-  <!-- Loading State -->
-  <div *ngIf="isLoading" class="text-center my-5 animate-fade-in">
+  <!-- Live Statistics Section -->
+  <div *ngIf="isLoading" class="text-center my-4">
     <div class="spinner-border text-primary" role="status">
       <span class="visually-hidden">Cargando...</span>
     </div>
-    <p class="mt-2 text-muted">Obteniendo estadísticas del sistema...</p>
   </div>
 
-  <!-- Stats Grid -->
-  <div *ngIf="!isLoading" class="stats-grid animate-fade-in">
-    <div class="stat-card premium-card color-blue">
-      <div class="stat-icon">
-        <span class="material-icons">people</span>
-      </div>
-      <div class="stat-data">
-        <span class="stat-value">{{ totalCiudadanos }}</span>
-        <span class="stat-label">Ciudadanos en Padrón</span>
+  <section *ngIf="!isLoading" class="stats-grid-onpe">
+    <div class="stat-card-onpe border-blue">
+      <span class="material-icons stat-card-icon icon-blue">people</span>
+      <div class="stat-card-info">
+        <span class="stat-card-val">{{ totalCiudadanos }}</span>
+        <span class="stat-card-lbl">Ciudadanos en Padrón</span>
       </div>
     </div>
-
-    <div class="stat-card premium-card color-green">
-      <div class="stat-icon">
-        <span class="material-icons">calendar_month</span>
-      </div>
-      <div class="stat-data">
-        <span class="stat-value">{{ totalElecciones }}</span>
-        <span class="stat-label">Elecciones Registradas</span>
+    <div class="stat-card-onpe border-green">
+      <span class="material-icons stat-card-icon icon-green">event_note</span>
+      <div class="stat-card-info">
+        <span class="stat-card-val">{{ totalElecciones }}</span>
+        <span class="stat-card-lbl">Procesos Electorales</span>
       </div>
     </div>
-
-    <div class="stat-card premium-card color-amber">
-      <div class="stat-icon">
-        <span class="material-icons">badge</span>
-      </div>
-      <div class="stat-data">
-        <span class="stat-value">{{ totalCandidatos }}</span>
-        <span class="stat-label">Candidatos Monitoreados</span>
+    <div class="stat-card-onpe border-amber">
+      <span class="material-icons stat-card-icon icon-amber">assignment_ind</span>
+      <div class="stat-card-info">
+        <span class="stat-card-val">{{ totalCandidatos }}</span>
+        <span class="stat-card-lbl">Candidatos Inscritos</span>
       </div>
     </div>
-
-    <div class="stat-card premium-card color-red">
-      <div class="stat-icon">
-        <span class="material-icons">ballot</span>
-      </div>
-      <div class="stat-data">
-        <span class="stat-value">{{ totalVotos }}</span>
-        <span class="stat-label">Votos Emitidos</span>
+    <div class="stat-card-onpe border-red">
+      <span class="material-icons stat-card-icon icon-red">how_to_vote</span>
+      <div class="stat-card-info">
+        <span class="stat-card-val">{{ totalVotos }}</span>
+        <span class="stat-card-lbl">Votos Escrutados</span>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Quick Actions Grid -->
-  <div class="actions-section mt-5 animate-fade-in">
-    <h2 class="section-title mb-4">Acceso Rápido a Módulos</h2>
-    <div class="actions-grid">
-      <a routerLink="/votaciones" class="action-tile premium-card">
-        <span class="material-icons tile-icon icon-vote">how_to_vote</span>
-        <span class="tile-title">Emitir Voto</span>
-        <span class="tile-desc">Asistente oficial para el sufragio del ciudadano.</span>
-      </a>
+  <!-- What we choose Gallery Section (Directly from model site!) -->
+  <section class="gallery-quelegimos-onpe mt-4">
+    <h2 class="section-title mb-2">¿Qué elegiremos en estas Elecciones Generales 2026?</h2>
+    <p class="section-desc text-muted mb-4">Estas son las autoridades públicas por las cuales sufragarán los ciudadanos habilitados en el territorio y en el extranjero.</p>
+    
+    <div class="authority-grid">
+      <div class="authority-card premium-card text-center">
+        <div class="auth-icon-wrapper color-pres">
+          <span class="material-icons">gavel</span>
+        </div>
+        <h4>Fórmula Presidencial</h4>
+        <p class="text-sm text-muted">Presidente y Vicepresidentes para el período gubernamental 2026-2031.</p>
+      </div>
 
-      <a routerLink="/resultados" class="action-tile premium-card">
-        <span class="material-icons tile-icon icon-results">analytics</span>
-        <span class="tile-title">Resultados Generales</span>
-        <span class="tile-desc">Monitoreo y tabulación de votos en tiempo real.</span>
-      </a>
+      <div class="authority-card premium-card text-center">
+        <div class="auth-icon-wrapper color-sen">
+          <span class="material-icons">account_balance</span>
+        </div>
+        <h4>Senadores</h4>
+        <p class="text-sm text-muted">Miembros de la cámara alta para legislar en materia nacional y tratados.</p>
+      </div>
 
-      <a routerLink="/ciudadanos" class="action-tile premium-card">
-        <span class="material-icons tile-icon icon-people">people</span>
-        <span class="tile-title">Gestión de Ciudadanos</span>
-        <span class="tile-desc">Habilitar y registrar electores autorizados.</span>
-      </a>
+      <div class="authority-card premium-card text-center">
+        <div class="auth-icon-wrapper color-dip">
+          <span class="material-icons">groups</span>
+        </div>
+        <h4>Diputados</h4>
+        <p class="text-sm text-muted">Representantes de la cámara de diputados organizados por distritos electorales.</p>
+      </div>
 
-      <a routerLink="/elecciones" class="action-tile premium-card">
-        <span class="material-icons tile-icon icon-calendar">event_note</span>
-        <span class="tile-title">Gestión de Elecciones</span>
-        <span class="tile-desc">Definir e iniciar nuevos procesos electorales.</span>
-      </a>
-
-      <a routerLink="/candidatos" class="action-tile premium-card">
-        <span class="material-icons tile-icon icon-badge">assignment_ind</span>
-        <span class="tile-title">Gestión de Candidatos</span>
-        <span class="tile-desc">Asignar candidatos a elecciones vigentes.</span>
-      </a>
-
-      <a routerLink="/auditoria" class="action-tile premium-card">
-        <span class="material-icons tile-icon icon-audit">policy</span>
-        <span class="tile-title">Auditoría del Sistema</span>
-        <span class="tile-desc">Consultar traza inmutable del sufragio de ciudadanos.</span>
-      </a>
+      <div class="authority-card premium-card text-center">
+        <div class="auth-icon-wrapper color-par">
+          <span class="material-icons">public</span>
+        </div>
+        <h4>Parlamento Andino</h4>
+        <p class="text-sm text-muted">Representantes del Perú ante el órgano deliberativo de la Comunidad Andina.</p>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- Informative reading materials section -->
+  <section class="boletin-onpe-section mt-5">
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="boletin-card bg-lectura p-4 rounded d-flex align-items-center justify-content-between">
+          <div>
+            <h4 class="b-title text-white">Material de Lectura</h4>
+            <p class="b-desc text-white opacity-80 text-sm">Infórmate detalladamente sobre el desarrollo de la jornada electoral.</p>
+          </div>
+          <a routerLink="/auditoria" class="btn btn-warning btn-sm">Consultar</a>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="boletin-card bg-padrón p-4 rounded d-flex align-items-center justify-content-between">
+          <div>
+            <h4 class="b-title text-white">Padrón de Electores</h4>
+            <p class="b-desc text-white opacity-80 text-sm">Verifique su estado de habilitación para ejercer su derecho al voto.</p>
+          </div>
+          <a routerLink="/ciudadanos" class="btn btn-warning btn-sm">Verificar</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
