@@ -40,9 +40,16 @@ export class CandidatosComponent implements OnInit {
 
     this.candidatoService
       .listar()
-      .subscribe(data => {
-
-        this.candidatos = data;
+      .subscribe((data: any) => {
+        if (Array.isArray(data)) {
+          this.candidatos = data;
+        } else if (data && data.data && Array.isArray(data.data)) {
+          this.candidatos = data.data;
+        } else if (data && data.content && Array.isArray(data.content)) {
+          this.candidatos = data.content;
+        } else {
+          this.candidatos = Object.values(data).find(val => Array.isArray(val)) as any[] || [];
+        }
       });
   }
 
@@ -50,9 +57,16 @@ export class CandidatosComponent implements OnInit {
 
     this.eleccionService
       .listar()
-      .subscribe(data => {
-
-        this.elecciones = data;
+      .subscribe((data: any) => {
+        if (Array.isArray(data)) {
+          this.elecciones = data;
+        } else if (data && data.data && Array.isArray(data.data)) {
+          this.elecciones = data.data;
+        } else if (data && data.content && Array.isArray(data.content)) {
+          this.elecciones = data.content;
+        } else {
+          this.elecciones = Object.values(data).find(val => Array.isArray(val)) as any[] || [];
+        }
       });
   }
 
