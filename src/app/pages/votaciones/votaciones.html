@@ -1,114 +1,308 @@
-<div class="container mt-4">
+<div class="page-container animate-fade-in">
+  <div class="page-header d-flex justify-content-between align-items-center mb-4">
+    <div class="header-info">
+      <h1>Cabina de Votación 🗳️</h1>
+      <p class="text-muted">Proceso oficial de emisión del sufragio electrónico.</p>
+    </div>
+    
+    <!-- Tab Controls -->
+    <div class="tab-controls bg-white p-1 rounded shadow-sm d-flex">
+      <button 
+        class="tab-btn" 
+        [class.active]="activeTab === 'wizard'"
+        (click)="activeTab = 'wizard'">
+        <span class="material-icons">how_to_vote</span>
+        Emitir Voto
+      </button>
+      <button 
+        class="tab-btn" 
+        [class.active]="activeTab === 'history'"
+        (click)="activeTab = 'history'">
+        <span class="material-icons">history</span>
+        Historial
+      </button>
+    </div>
+  </div>
 
-    <h2>Votaciones</h2>
+  <!-- ERROR ALERT -->
+  <div *ngIf="errorMessage" class="alert alert-danger d-flex align-items-center mb-4 animate-fade-in">
+    <span class="material-icons me-2">error</span>
+    <span>{{ errorMessage }}</span>
+  </div>
 
-    <div class="card mb-4">
-
-        <div class="card-body">
-
-            <div class="row">
-
-                <div class="col-md-4">
-
-                    <input
-                        class="form-control"
-                        placeholder="DNI"
-                        [(ngModel)]="dni">
-
-                </div>
-
-                <div class="col-md-4">
-
-                    <select
-                        class="form-select"
-                        [(ngModel)]="eleccionId">
-
-                        <option [ngValue]="0">
-
-                            Seleccione elección
-
-                        </option>
-
-                        <option
-                            *ngFor="let e of elecciones"
-                            [ngValue]="e.id">
-
-                            {{e.nombre}}
-
-                        </option>
-
-                    </select>
-
-                </div>
-
-                <div class="col-md-4">
-
-                    <select
-                        class="form-select"
-                        [(ngModel)]="candidatoId">
-
-                        <option [ngValue]="0">
-
-                            Seleccione candidato
-
-                        </option>
-
-                        <option
-                            *ngFor="let c of candidatos"
-                            [ngValue]="c.id">
-
-                            {{c.nombres}}
-
-                        </option>
-
-                    </select>
-
-                </div>
-
-            </div>
-
-            <button
-                class="btn btn-danger mt-3"
-                (click)="votar()">
-
-                Registrar Voto
-
-            </button>
-
-        </div>
-
+  <!-- TAB WIZARD (VOTING FLOW) -->
+  <div *ngIf="activeTab === 'wizard'" class="wizard-container">
+    
+    <!-- Step indicator (only when voting has not succeeded yet) -->
+    <div *ngIf="!votoExitoso" class="step-indicator-bar mb-5">
+      <div class="step-node" [class.active]="paso >= 1" [class.complete]="paso > 1">
+        <div class="step-circle">1</div>
+        <span class="step-label">Elección</span>
+      </div>
+      <div class="step-line" [class.active]="paso > 1"></div>
+      <div class="step-node" [class.active]="paso >= 2" [class.complete]="paso > 2">
+        <div class="step-circle">2</div>
+        <span class="step-label">Identidad</span>
+      </div>
+      <div class="step-line" [class.active]="paso > 2"></div>
+      <div class="step-node" [class.active]="paso >= 3" [class.complete]="votoExitoso">
+        <div class="step-circle">3</div>
+        <span class="step-label">Sufragio</span>
+      </div>
     </div>
 
-    <table class="table table-bordered">
+    <!-- VOTO EXITOSO (COMPROBANTE) -->
+    <div *ngIf="votoExitoso" class="success-receipt premium-card text-center py-5 animate-scale-in">
+      <div class="success-icon mb-4">
+        <span class="material-icons">check_circle</span>
+      </div>
+      <h2 class="text-success mb-2">¡Voto Registrado Exitosamente!</h2>
+      <p class="text-muted mb-4">Su sufragio ha sido procesado de forma secreta y auditada.</p>
 
-        <thead>
+      <div class="receipt-card mx-auto mb-4 p-4 text-start">
+        <div class="receipt-header pb-3 mb-3 border-bottom text-center">
+          <span class="receipt-title">COMPROBANTE DE SUFRAGIO</span>
+        </div>
+        <div class="receipt-row">
+          <span class="label">ID de Voto:</span>
+          <span class="value"><strong>#{{ comprobante.id }}</strong></span>
+        </div>
+        <div class="receipt-row">
+          <span class="label">DNI del Elector:</span>
+          <span class="value">{{ comprobante.dni }}</span>
+        </div>
+        <div class="receipt-row">
+          <span class="label">Elección:</span>
+          <span class="value">{{ comprobante.eleccion }}</span>
+        </div>
+        <div class="receipt-row">
+          <span class="label">Candidato:</span>
+          <span class="value">{{ comprobante.candidato }}</span>
+        </div>
+        <div class="receipt-row">
+          <span class="label">Partido:</span>
+          <span class="value"><span class="badge-custom badge-custom-info">{{ comprobante.partido }}</span></span>
+        </div>
+        <div class="receipt-row">
+          <span class="label">Fecha y Hora:</span>
+          <span class="value">{{ comprobante.fechaVoto }}</span>
+        </div>
+      </div>
 
+      <div class="d-flex justify-content-center gap-3">
+        <button class="btn btn-primary" (click)="reiniciarWizard()">
+          <span class="material-icons">refresh</span>
+          Emitir Nuevo Voto
+        </button>
+        <a routerLink="/resultados" class="btn btn-success">
+          <span class="material-icons">analytics</span>
+          Ver Resultados
+        </a>
+      </div>
+    </div>
+
+    <!-- FLOW STEPS -->
+    <div *ngIf="!votoExitoso">
+
+      <!-- PASO 1: SELECCIONAR ELECCIÓN -->
+      <div *ngIf="paso === 1" class="animate-fade-in">
+        <h3 class="mb-4 text-center">Seleccione la Elección en la que desea participar</h3>
+        
+        <div class="row g-4 justify-content-center">
+          <div class="col-md-6 col-lg-4" *ngFor="let e of elecciones">
+            <div class="eleccion-select-card premium-card text-center" (click)="seleccionarEleccion(e)">
+              <div class="eleccion-badge mb-3">
+                <span class="badge-custom badge-custom-success">ACTIVA</span>
+              </div>
+              <span class="material-icons display-icon mb-2">event_note</span>
+              <h4 class="mb-2">{{ e.nombre }}</h4>
+              <p class="text-sm text-muted mb-3">Vence el: {{ e.fechaFin }}</p>
+              <button class="btn btn-primary btn-sm w-100">
+                Seleccionar
+                <span class="material-icons">chevron_right</span>
+              </button>
+            </div>
+          </div>
+          
+          <div class="col-12 text-center" *ngIf="elecciones.length === 0">
+            <p class="text-muted">No hay elecciones activas actualmente.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PASO 2: INGRESAR DNI -->
+      <div *ngIf="paso === 2" class="animate-fade-in">
+        <div class="col-md-6 mx-auto">
+          <div class="premium-card text-center p-4">
+            <span class="material-icons fingerprint-icon mb-3">fingerprint</span>
+            <h3 class="mb-2">Validación de Identidad</h3>
+            <p class="text-muted mb-4">Ingrese su DNI para comprobar su habilitación en la elección seleccionada.</p>
+            
+            <div class="text-start mb-4">
+              <span class="badge-custom badge-custom-info mb-3 d-inline-block">
+                Elección: {{ selectedEleccion?.nombre }}
+              </span>
+              <div class="mb-3">
+                <label class="form-label" for="dni">Número de DNI</label>
+                <input 
+                  type="text" 
+                  id="dni" 
+                  name="dni" 
+                  class="form-control text-center fs-4 font-weight-bold" 
+                  placeholder="00000000"
+                  maxlength="8"
+                  [(ngModel)]="dni">
+              </div>
+            </div>
+
+            <div class="d-flex gap-3">
+              <button class="btn btn-secondary flex-fill" (click)="paso = 1">
+                <span class="material-icons">chevron_left</span>
+                Atrás
+              </button>
+              <button class="btn btn-primary flex-fill" (click)="validarDni()" [disabled]="dni.length !== 8">
+                Continuar
+                <span class="material-icons">chevron_right</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PASO 3: SELECCIONAR CANDIDATO -->
+      <div *ngIf="paso === 3" class="animate-fade-in">
+        <h3 class="text-center mb-2">Cédula Oficial de Sufragio</h3>
+        <p class="text-muted text-center mb-4">Marque con una cruz (X) sobre la opción de su preferencia para registrar su sufragio.</p>
+        
+        <div class="selected-summary bg-white p-3 rounded shadow-sm mb-4 d-flex justify-content-between align-items-center">
+          <div>
+            <span class="d-block text-sm text-muted">Elección</span>
+            <strong>{{ selectedEleccion?.nombre }}</strong>
+          </div>
+          <div>
+            <span class="d-block text-sm text-muted">Elector (DNI)</span>
+            <strong>{{ dni }}</strong>
+          </div>
+        </div>
+
+        <!-- Official ballot wrapper -->
+        <div class="ballot-paper-box">
+          <div class="ballot-header-onpe">
+            <span>ORGANISMO ELECTORAL OFICIAL - CÉDULA DE SUFRAGIO ELECTRÓNICO</span>
+          </div>
+          
+          <div class="ballot-grid-custom">
+            <div 
+              class="ballot-card-custom" 
+              *ngFor="let c of candidatosDeEleccion"
+              [class.marked]="candidatoId === c.id"
+              (click)="seleccionarCandidato(c)">
+              
+              <!-- Animate cross mark overlay when selected (Signature Interaction) -->
+              <div class="ballot-cross-mark" *ngIf="candidatoId === c.id">
+                <span class="cross-line line-1"></span>
+                <span class="cross-line line-2"></span>
+              </div>
+              
+              <div class="ballot-candidate-column">
+                <div class="ballot-photo-box">
+                  <span class="material-icons">person</span>
+                </div>
+                <div class="ballot-candidate-details">
+                  <span class="ballot-candidate-num">CANDIDATO #{{ c.id }}</span>
+                  <span class="ballot-candidate-name">{{ c.nombres }}</span>
+                </div>
+              </div>
+              
+              <div class="ballot-divider-vertical"></div>
+              
+              <div class="ballot-logo-column">
+                <div class="ballot-logo-box">
+                  <span class="ballot-logo-text">{{ c.partido.substring(0, 2) | uppercase }}</span>
+                </div>
+                <span class="ballot-party-name">{{ c.partido }}</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="text-center text-muted py-5" *ngIf="candidatosDeEleccion.length === 0">
+            No hay candidatos inscritos para esta elección en la cédula.
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between mt-5">
+          <button class="btn btn-secondary" (click)="paso = 2">
+            <span class="material-icons">chevron_left</span>
+            Atrás
+          </button>
+          <button class="btn btn-success" [disabled]="!candidatoId" (click)="abrirConfirmacion()">
+            Emitir Voto
+            <span class="material-icons">how_to_vote</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TAB HISTORY (ADMIN TRACKING) -->
+  <div *ngIf="activeTab === 'history'" class="history-container animate-fade-in">
+    <div class="premium-card">
+      <h3 class="card-title mb-4">
+        <span class="material-icons">list_alt</span>
+        Registro de Votos Emitidos
+      </h3>
+      
+      <div class="table-responsive">
+        <table class="table-premium">
+          <thead>
             <tr>
-
-                <th>ID</th>
-                <th>DNI</th>
-                <th>Elección</th>
-                <th>Candidato</th>
-                <th>Fecha</th>
-
+              <th>ID Voto</th>
+              <th>DNI Elector</th>
+              <th>Elección</th>
+              <th>Candidato Sufragado</th>
+              <th>Fecha de Emisión</th>
             </tr>
-
-        </thead>
-
-        <tbody>
-
+          </thead>
+          <tbody>
             <tr *ngFor="let v of votos">
-
-                <td>{{v.id}}</td>
-                <td>{{v.dni}}</td>
-                <td>{{v.eleccionId}}</td>
-                <td>{{v.candidatoId}}</td>
-                <td>{{v.fechaVoto}}</td>
-
+              <td><strong>#{{ v.id }}</strong></td>
+              <td>{{ v.dni }}</td>
+              <td>{{ getEleccionNombre(v.eleccionId) }}</td>
+              <td>{{ getCandidatoNombre(v.candidatoId) }}</td>
+              <td>{{ v.fechaVoto | date:'medium' }}</td>
             </tr>
+            <tr *ngIf="votos.length === 0">
+              <td colspan="5" class="text-center py-4 text-muted">
+                No se han registrado votos en el sistema.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
-        </tbody>
+  <!-- CONFIRMATION MODAL -->
+  <div class="confirm-modal-overlay animate-fade-in" *ngIf="showConfirmModal">
+    <div class="confirm-modal-card glass-panel premium-card text-center p-4">
+      <span class="material-icons warning-icon mb-3">warning</span>
+      <h3 class="mb-3">¿Confirmar su Voto?</h3>
+      <p class="text-muted mb-4">Usted está a punto de emitir su voto. Recuerde que esta acción es <strong>irreversible</strong>.</p>
+      
+      <div class="modal-summary p-3 bg-light rounded text-start mb-4">
+        <div class="mb-2"><strong>DNI:</strong> {{ dni }}</div>
+        <div class="mb-2"><strong>Elección:</strong> {{ selectedEleccion?.nombre }}</div>
+        <div><strong>Candidato:</strong> {{ selectedCandidato?.nombres }} ({{ selectedCandidato?.partido }})</div>
+      </div>
 
-    </table>
-
+      <div class="d-flex gap-3">
+        <button class="btn btn-secondary flex-fill" (click)="cerrarConfirmacion()">Cancelar</button>
+        <button class="btn btn-success flex-fill" (click)="votar()" [disabled]="isLoading">
+          <span class="spinner-border spinner-border-sm me-2" *ngIf="isLoading"></span>
+          Sí, Confirmar Voto
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

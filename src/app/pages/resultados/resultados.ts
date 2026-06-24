@@ -1,27 +1,51 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { ResultadoService } from '../../core/services/resultado.service';
+import { EleccionService } from '../../core/services/eleccion.service';
+import { CandidatoService } from '../../core/services/candidato.service';
 
 @Component({
   selector: 'app-resultados',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './resultados.html',
   styleUrl: './resultados.css'
 })
 export class ResultadosComponent implements OnInit {
 
-  private service =
-    inject(ResultadoService);
+  private resultadoService = inject(ResultadoService);
+  private eleccionService = inject(EleccionService);
+  private candidatoService = inject(CandidatoService);
 
-  resultados: any[] = [];
+  resultadosRaw: any[] = [];
+  elecciones: any[] = [];
+  candidatos: any[] = [];
+
+  resultadosFiltrados: any[] = [];
+  eleccionIdSeleccionada = 0;
+  totalVotosEleccion = 0;
+  isLoading = true;
 
   ngOnInit(): void {
-
-    this.cargar();
+    this.cargarDatos();
   }
 
-  cargar(): void {
+  cargarDatos(): void {
+    this.isLoading = true;
+    let completed = 0;
+
+    const checkComplete = () => {
+      completed++;
+      if (completed === 3) {
+        this.isLoading = false;
+        if (this.elecciones && this.elecciones.length > 0) {
+          this.eleccionIdSeleccionada = this.elecciones[0].id;
+          this.filtrarResultados();
+        }
+      }
+    };
 
     this.service
       .listar()

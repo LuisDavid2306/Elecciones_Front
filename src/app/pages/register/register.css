@@ -164,30 +164,6 @@
   color: var(--color-primary);
 }
 
-/* Password Visibility Toggle */
-.field-toggle-btn {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: var(--color-neutral-500);
-  cursor: pointer;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  transition: var(--transition-fast);
-}
-
-.field-toggle-btn:hover {
-  color: var(--color-primary);
-}
-
-.field-toggle-btn .material-icons {
-  font-size: 20px;
-}
-
 /* Minimalist Inline Error */
 .alert-inline-error {
   background-color: var(--color-error-light);
@@ -199,6 +175,20 @@
 }
 
 .alert-inline-error .material-icons {
+  font-size: 18px;
+}
+
+/* Minimalist Inline Success */
+.alert-inline-success {
+  background-color: var(--color-success-light);
+  color: var(--color-success);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
+  border-left: 3px solid var(--color-success);
+}
+
+.alert-inline-success .material-icons {
   font-size: 18px;
 }
 
@@ -266,7 +256,7 @@
 }
 
 .link-register-minimal:hover .material-icons {
-  transform: translateX(3px);
+  transform: translateX(-3px);
 }
 
 /* Responsive Collapse layout */

@@ -49,4 +49,10 @@ export class EleccionesComponent implements OnInit {
       this.cargar();
     });
   }
+
+  limpiar(): void {
+    this.nombre = '';
+    this.fechaInicio = '';
+    this.fechaFin = '';
+  }
 }
