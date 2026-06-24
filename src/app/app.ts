@@ -12,7 +12,6 @@ export class App implements OnInit, OnDestroy {
   private router = inject(Router);
   protected readonly title = signal('VotoDigital');
 
-  // Countdown timer state
   days = 0;
   hours = 0;
   minutes = 0;
@@ -30,11 +29,11 @@ export class App implements OnInit, OnDestroy {
 
   startCountdown(): void {
     const electionDate = new Date('2026-04-12T07:00:00').getTime();
-    
+
     const updateTime = () => {
       const now = new Date().getTime();
       const diff = electionDate - now;
-      
+
       if (diff <= 0) {
         this.days = 0;
         this.hours = 0;
@@ -42,7 +41,7 @@ export class App implements OnInit, OnDestroy {
         clearInterval(this.timerInterval);
         return;
       }
-      
+
       this.days = Math.floor(diff / (1000 * 60 * 60 * 24));
       this.hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       this.minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
