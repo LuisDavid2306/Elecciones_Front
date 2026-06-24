@@ -1,97 +1,109 @@
-<div class="register-container animate-fade-in">
-  <div class="register-card glass-panel premium-card">
-    <div class="brand-header text-center">
-      <div class="badge-institutional">ORGANISMO ELECTORAL OFICIAL</div>
-      <div class="brand-logo-container">
-        <img src="logo-onpe.png" alt="ONPE Logo" class="brand-logo-img">
-      </div>
-      <h2>VotoDigital</h2>
-      <p class="subtitle text-muted">Registro Nacional de Votantes</p>
+<div class="split-login-container animate-fade-in">
+  <!-- Left Column: Branding Section -->
+  <div class="brand-section">
+    <div class="brand-content text-center">
+      <img src="logo-onpe.png" alt="ONPE Logo" class="brand-logo-onpe">
+      <h1 class="brand-title">VotoDigital</h1>
+      <p class="brand-tagline">Sistema de Votación Electrónica</p>
+      <div class="brand-divider"></div>
+      <p class="brand-legal">Oficina Nacional de Procesos Electorales (ONPE)</p>
     </div>
+  </div>
 
-    <form (ngSubmit)="register()" #registerForm="ngForm">
-      <div class="mb-3">
-        <label class="form-label" for="dni">DNI (Documento de Identidad)</label>
-        <div class="input-icon-group">
-          <span class="material-icons">fingerprint</span>
-          <input
-            type="text"
-            id="dni"
-            name="dni"
-            class="form-control"
-            placeholder="Ingrese su DNI (8 dígitos)"
-            maxlength="8"
-            [(ngModel)]="dni"
-            required>
+  <!-- Right Column: Form Section -->
+  <div class="form-section">
+    <div class="form-content-wrapper animate-scale-in">
+      <div class="form-header mb-4">
+        <h2>Registro de Votante</h2>
+        <p class="text-muted">Inscriba su cuenta para participar en los procesos electorales vigentes.</p>
+      </div>
+
+      <form (ngSubmit)="register()" #registerForm="ngForm" class="login-form-custom">
+        <div class="input-field-custom mb-3">
+          <label class="field-label-custom" for="dni">DNI (Documento de Identidad)</label>
+          <div class="input-wrapper-custom">
+            <span class="material-icons field-icon">fingerprint</span>
+            <input
+              type="text"
+              id="dni"
+              name="dni"
+              class="input-control-custom"
+              placeholder="Ingrese su DNI (8 dígitos)"
+              maxlength="8"
+              [(ngModel)]="dni"
+              required>
+          </div>
         </div>
-      </div>
 
-      <div class="mb-3">
-        <label class="form-label" for="nombres">Nombres Completos</label>
-        <div class="input-icon-group">
-          <span class="material-icons">person</span>
-          <input
-            type="text"
-            id="nombres"
-            name="nombres"
-            class="form-control"
-            placeholder="Ej. Juan Carlos Pérez"
-            [(ngModel)]="nombres"
-            required>
+        <div class="input-field-custom mb-3">
+          <label class="field-label-custom" for="nombres">Nombres Completos</label>
+          <div class="input-wrapper-custom">
+            <span class="material-icons field-icon">person</span>
+            <input
+              type="text"
+              id="nombres"
+              name="nombres"
+              class="input-control-custom"
+              placeholder="Nombres y Apellidos"
+              [(ngModel)]="nombres"
+              required>
+          </div>
         </div>
-      </div>
 
-      <div class="mb-3">
-        <label class="form-label" for="username">Nombre de Usuario</label>
-        <div class="input-icon-group">
-          <span class="material-icons">account_circle</span>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            class="form-control"
-            placeholder="Defina un nombre de usuario"
-            [(ngModel)]="username"
-            required>
+        <div class="input-field-custom mb-3">
+          <label class="field-label-custom" for="username">Nombre de Usuario</label>
+          <div class="input-wrapper-custom">
+            <span class="material-icons field-icon">account_circle</span>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="input-control-custom"
+              placeholder="Defina un nombre de usuario"
+              [(ngModel)]="username"
+              required>
+          </div>
         </div>
-      </div>
 
-      <div class="mb-4">
-        <label class="form-label" for="password">Contraseña</label>
-        <div class="input-icon-group">
-          <span class="material-icons">lock</span>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            class="form-control"
-            placeholder="Mínimo 6 caracteres"
-            [(ngModel)]="password"
-            required>
+        <div class="input-field-custom mb-4">
+          <label class="field-label-custom" for="password">Contraseña</label>
+          <div class="input-wrapper-custom">
+            <span class="material-icons field-icon">lock</span>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="input-control-custom"
+              placeholder="Mínimo 6 caracteres"
+              [(ngModel)]="password"
+              required>
+          </div>
         </div>
-      </div>
 
-      <!-- Alerts -->
-      <div *ngIf="errorMessage" class="alert alert-danger d-flex align-items-center mb-3">
-        <span class="material-icons me-2">error</span>
-        <span>{{ errorMessage }}</span>
-      </div>
+        <!-- Alerts -->
+        <div *ngIf="errorMessage" class="alert-inline-error mb-3 d-flex align-items-center">
+          <span class="material-icons me-2">error_outline</span>
+          <span>{{ errorMessage }}</span>
+        </div>
 
-      <div *ngIf="successMessage" class="alert alert-success d-flex align-items-center mb-3">
-        <span class="material-icons me-2">check_circle</span>
-        <span>{{ successMessage }}</span>
-      </div>
+        <div *ngIf="successMessage" class="alert-inline-success mb-3 d-flex align-items-center">
+          <span class="material-icons me-2">check_circle_outline</span>
+          <span>{{ successMessage }}</span>
+        </div>
 
-      <button type="submit" class="btn btn-primary w-100 mb-3" [disabled]="isLoading">
-        <span class="material-icons" *ngIf="!isLoading">app_registration</span>
-        <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" *ngIf="isLoading"></span>
-        {{ isLoading ? 'Creando cuenta...' : 'Crear Cuenta' }}
-      </button>
+        <button type="submit" class="btn-primary-custom" [disabled]="isLoading">
+          <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" *ngIf="isLoading"></span>
+          {{ isLoading ? 'CREANDO CUENTA...' : 'REGISTRAR ELECTOR' }}
+        </button>
 
-      <div class="text-center mt-3 text-sm">
-        <span class="text-muted">¿Ya tienes una cuenta? </span>
-        <a routerLink="/" class="link-login">Iniciar Sesión</a>
-      </div>
-    </form>
+        <div class="form-footer mt-4">
+          <span class="register-hint">¿Ya tiene una cuenta de votante?</span>
+          <a routerLink="/" class="link-register-minimal">
+            <span class="material-icons me-1">arrow_back</span>
+            Volver al inicio de sesión
+          </a>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
