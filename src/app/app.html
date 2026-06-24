@@ -1,85 +1,79 @@
-<ng-container *ngIf="showLayout(); else rawLayout">
-  <div class="layout-wrapper">
-    <!-- Header Superior (ONPE Style) -->
-    <header class="site-header-custom">
-      <div class="header-container-custom">
-        <a class="header-logo-link" href="/dashboard">
-          <img src="logo-onpe.png" alt="ONPE Logo" class="header-logo-onpe">
-        </a>
+<div [class.layout-wrapper]="showLayout()">
+  <!-- Header Superior (ONPE Style) -->
+  <header *ngIf="showLayout()" class="site-header-custom">
+    <div class="header-container-custom">
+      <a class="header-logo-link" href="/dashboard">
+        <img src="logo-onpe.png" alt="ONPE Logo" class="header-logo-onpe">
+      </a>
 
-        <!-- Countdown -->
-        <div class="countdown-wrapper-custom">
-          <span class="countdown-title">FALTAN:</span>
-          <div class="countdown-timer-custom">
-            <div class="timer-card-custom">
-              <div class="timer-num">{{ days }}</div>
-              <div class="timer-unit">Días</div>
-            </div>
-            <div class="timer-card-custom">
-              <div class="timer-num">{{ hours }}</div>
-              <div class="timer-unit">Horas</div>
-            </div>
-            <div class="timer-card-custom">
-              <div class="timer-num">{{ minutes }}</div>
-              <div class="timer-unit">Minutos</div>
-            </div>
+      <!-- Countdown -->
+      <div class="countdown-wrapper-custom">
+        <span class="countdown-title">FALTAN:</span>
+        <div class="countdown-timer-custom">
+          <div class="timer-card-custom">
+            <div class="timer-num">{{ days }}</div>
+            <div class="timer-unit">Días</div>
+          </div>
+          <div class="timer-card-custom">
+            <div class="timer-num">{{ hours }}</div>
+            <div class="timer-unit">Horas</div>
+          </div>
+          <div class="timer-card-custom">
+            <div class="timer-num">{{ minutes }}</div>
+            <div class="timer-unit">Minutos</div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Navigation Bar (ONPE Dark Blue Banner) -->
-      <div class="nav-banner-custom">
-        <div class="nav-container-custom">
-          <nav class="nav-menu-custom">
-            <a routerLink="/dashboard" routerLinkActive="active" class="nav-link-custom">Inicio</a>
-            <a routerLink="/votaciones" routerLinkActive="active" class="nav-link-custom">Emitir Voto</a>
-            <a routerLink="/resultados" routerLinkActive="active" class="nav-link-custom">Resultados</a>
-            <a routerLink="/ciudadanos" routerLinkActive="active" class="nav-link-custom">Padrón Electoral</a>
-            <a routerLink="/elecciones" routerLinkActive="active" class="nav-link-custom">Elecciones</a>
-            <a routerLink="/candidatos" routerLinkActive="active" class="nav-link-custom">Candidatos</a>
-            <a routerLink="/auditoria" routerLinkActive="active" class="nav-link-custom">Auditoría</a>
-          </nav>
+    <!-- Navigation Bar (ONPE Dark Blue Banner) -->
+    <div class="nav-banner-custom">
+      <div class="nav-container-custom">
+        <nav class="nav-menu-custom">
+          <a routerLink="/dashboard" routerLinkActive="active" class="nav-link-custom">Inicio</a>
+          <a routerLink="/votaciones" routerLinkActive="active" class="nav-link-custom">Emitir Voto</a>
+          <a routerLink="/resultados" routerLinkActive="active" class="nav-link-custom">Resultados</a>
+          <a routerLink="/ciudadanos" routerLinkActive="active" class="nav-link-custom">Padrón Electoral</a>
+          <a routerLink="/elecciones" routerLinkActive="active" class="nav-link-custom">Elecciones</a>
+          <a routerLink="/candidatos" routerLinkActive="active" class="nav-link-custom">Candidatos</a>
+          <a routerLink="/auditoria" routerLinkActive="active" class="nav-link-custom">Auditoría</a>
+        </nav>
 
-          <div class="nav-right-actions">
-            <div class="user-pill-custom">
-              <span class="material-icons">account_circle</span>
-              <span>Ciudadano</span>
-            </div>
-            <button class="nav-btn-logout" (click)="logout()" title="Cerrar Sesión">
-              <span class="material-icons">logout</span>
-            </button>
+        <div class="nav-right-actions">
+          <div class="user-pill-custom">
+            <span class="material-icons">account_circle</span>
+            <span>Ciudadano</span>
           </div>
+          <button class="nav-btn-logout" (click)="logout()" title="Cerrar Sesión">
+            <span class="material-icons">logout</span>
+          </button>
         </div>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <!-- Contenido Principal -->
-    <main class="main-content-custom">
-      <div class="content-container-custom">
-        <router-outlet></router-outlet>
+  <!-- Contenido Principal -->
+  <main [class.main-content-custom]="showLayout()">
+    <div [class.content-container-custom]="showLayout()">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer *ngIf="showLayout()" class="footer-custom">
+    <div class="footer-container-custom">
+      <div class="footer-col">
+        <h4>Oficina Central</h4>
+        <p>Jr. Washington 1894, Cercado de Lima<br>Lunes a viernes de 8:30 a.m. a 5:00 p.m.</p>
       </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer-custom">
-      <div class="footer-container-custom">
-        <div class="footer-col">
-          <h4>Oficina Central</h4>
-          <p>Jr. Washington 1894, Cercado de Lima<br>Lunes a viernes de 8:30 a.m. a 5:00 p.m.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Contáctanos</h4>
-          <p>informes@onpe.gob.pe<br>(01) 4170630</p>
-        </div>
-        <div class="footer-col">
-          <h4>VotoDigital</h4>
-          <p>Portal Oficial de Sufragio Electrónico<br>© 2026 ONPE - Todos los derechos reservados.</p>
-        </div>
+      <div class="footer-col">
+        <h4>Contáctanos</h4>
+        <p>informes@onpe.gob.pe<br>(01) 4170630</p>
       </div>
-    </footer>
-  </div>
-</ng-container>
-
-<ng-template #rawLayout>
-  <router-outlet></router-outlet>
-</ng-template>
+      <div class="footer-col">
+        <h4>VotoDigital</h4>
+        <p>Portal Oficial de Sufragio Electrónico<br>© 2026 ONPE - Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+</div>
