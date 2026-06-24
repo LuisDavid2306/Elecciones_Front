@@ -1,1 +1,80 @@
-<router-outlet></router-outlet>
+<ng-container *ngIf="showLayout(); else rawLayout">
+  <div class="layout-wrapper">
+    <!-- Navbar Superior -->
+    <header class="app-navbar glass-panel">
+      <div class="navbar-left">
+        <img src="logo-onpe.png" alt="ONPE Logo" class="navbar-logo">
+        <div class="brand-text">
+          <span class="brand-name">VotoDigital</span>
+          <span class="brand-sub">Oficina Nacional de Procesos Electorales</span>
+        </div>
+      </div>
+      <div class="navbar-right">
+        <div class="profile-pill">
+          <span class="material-icons">account_circle</span>
+          <span class="profile-name">Usuario Conectado</span>
+        </div>
+        <button class="btn-logout" (click)="logout()" title="Cerrar Sesión">
+          <span class="material-icons">logout</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="main-container">
+      <!-- Sidebar Lateral -->
+      <aside class="app-sidebar glass-panel">
+        <div class="sidebar-header">
+          <span class="sidebar-title">PANEL DE CONTROL</span>
+        </div>
+        <nav class="sidebar-nav">
+          <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">
+            <span class="material-icons">dashboard</span>
+            <span>Dashboard</span>
+          </a>
+          <a routerLink="/votaciones" routerLinkActive="active" class="nav-item">
+            <span class="material-icons">ballot</span>
+            <span>Emitir Voto</span>
+          </a>
+          <a routerLink="/resultados" routerLinkActive="active" class="nav-item">
+            <span class="material-icons">analytics</span>
+            <span>Resultados</span>
+          </a>
+
+          <div class="nav-divider">Administración</div>
+
+          <a routerLink="/ciudadanos" routerLinkActive="active" class="nav-item">
+            <span class="material-icons">people</span>
+            <span>Padrón Electoral</span>
+          </a>
+          <a routerLink="/elecciones" routerLinkActive="active" class="nav-item">
+            <span class="material-icons">calendar_month</span>
+            <span>Elecciones</span>
+          </a>
+          <a routerLink="/candidatos" routerLinkActive="active" class="nav-item">
+            <span class="material-icons">badge</span>
+            <span>Candidatos</span>
+          </a>
+          <a routerLink="/auditoria" routerLinkActive="active" class="nav-item">
+            <span class="material-icons">policy</span>
+            <span>Auditoría</span>
+          </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+          <span class="version-tag">ONPE V1.0.0</span>
+        </div>
+      </aside>
+
+      <!-- Contenido Principal -->
+      <main class="content-wrapper">
+        <div class="content-card animate-fade-in">
+          <router-outlet></router-outlet>
+        </div>
+      </main>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #rawLayout>
+  <router-outlet></router-outlet>
+</ng-template>
