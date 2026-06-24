@@ -48,7 +48,7 @@ export class App implements OnInit, OnDestroy {
     };
 
     updateTime();
-    this.timerInterval = setInterval(updateTime, 60000); // Update every minute
+    this.timerInterval = setInterval(updateTime, 60000); // Up
   }
 
   showLayout(): boolean {
