@@ -1,0 +1,109 @@
+<div class="split-login-container animate-fade-in">
+  <!-- Left Column: Branding Section -->
+  <div class="brand-section">
+    <div class="brand-content text-center">
+      <img src="logo-onpe.png" alt="ONPE Logo" class="brand-logo-onpe">
+      <h1 class="brand-title">VotoDigital</h1>
+      <p class="brand-tagline">Sistema de Votación Electrónica</p>
+      <div class="brand-divider"></div>
+      <p class="brand-legal">Oficina Nacional de Procesos Electorales (ONPE)</p>
+    </div>
+  </div>
+
+  <!-- Right Column: Form Section -->
+  <div class="form-section">
+    <div class="form-content-wrapper animate-scale-in">
+      <div class="form-header mb-4">
+        <h2>Registro de Votante</h2>
+        <p class="text-muted">Inscriba su cuenta para participar en los procesos electorales vigentes.</p>
+      </div>
+
+      <form (ngSubmit)="register()" #registerForm="ngForm" class="login-form-custom">
+        <div class="input-field-custom mb-3">
+          <label class="field-label-custom" for="dni">DNI (Documento de Identidad)</label>
+          <div class="input-wrapper-custom">
+            <span class="material-icons field-icon">fingerprint</span>
+            <input
+              type="text"
+              id="dni"
+              name="dni"
+              class="input-control-custom"
+              placeholder="Ingrese su DNI (8 dígitos)"
+              maxlength="8"
+              [(ngModel)]="dni"
+              required>
+          </div>
+        </div>
+
+        <div class="input-field-custom mb-3">
+          <label class="field-label-custom" for="nombres">Nombres Completos</label>
+          <div class="input-wrapper-custom">
+            <span class="material-icons field-icon">person</span>
+            <input
+              type="text"
+              id="nombres"
+              name="nombres"
+              class="input-control-custom"
+              placeholder="Nombres y Apellidos"
+              [(ngModel)]="nombres"
+              required>
+          </div>
+        </div>
+
+        <div class="input-field-custom mb-3">
+          <label class="field-label-custom" for="username">Nombre de Usuario</label>
+          <div class="input-wrapper-custom">
+            <span class="material-icons field-icon">account_circle</span>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="input-control-custom"
+              placeholder="Defina un nombre de usuario"
+              [(ngModel)]="username"
+              required>
+          </div>
+        </div>
+
+        <div class="input-field-custom mb-4">
+          <label class="field-label-custom" for="password">Contraseña</label>
+          <div class="input-wrapper-custom">
+            <span class="material-icons field-icon">lock</span>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="input-control-custom"
+              placeholder="Mínimo 6 caracteres"
+              [(ngModel)]="password"
+              required>
+          </div>
+        </div>
+
+        <!-- Alerts -->
+        <div *ngIf="errorMessage" class="alert-inline-error mb-3 d-flex align-items-center">
+          <span class="material-icons me-2">error_outline</span>
+          <span>{{ errorMessage }}</span>
+        </div>
+
+        <div *ngIf="successMessage" class="alert-inline-success mb-3 d-flex align-items-center">
+          <span class="material-icons me-2">check_circle_outline</span>
+          <span>{{ successMessage }}</span>
+        </div>
+
+        <button type="submit" class="btn-primary-custom" [disabled]="isLoading">
+          <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" *ngIf="isLoading"></span>
+          {{ isLoading ? 'CREANDO CUENTA...' : 'REGISTRAR ELECTOR' }}
+        </button>
+
+        <div class="form-footer mt-4">
+          <span class="register-hint">¿Ya tiene una cuenta de votante?</span>
+          <a routerLink="/" class="link-register-minimal">
+            <span class="material-icons me-1">arrow_back</span>
+            Volver al inicio de sesión
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

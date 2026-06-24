@@ -1,97 +1,112 @@
-<div class="container mt-4">
+<div class="page-container animate-fade-in">
+  <div class="page-header mb-4">
+    <div class="header-info">
+      <h1>Gestión de Candidatos 👥</h1>
+      <p class="text-muted">Inscribir y relacionar candidatos con sus respectivos procesos electorales.</p>
+    </div>
+  </div>
 
-    <h2>Candidatos</h2>
+  <div class="row g-4">
+    <!-- Formulario para Registrar Candidato -->
+    <div class="col-lg-4">
+      <div class="premium-card">
+        <h3 class="card-title mb-4">
+          <span class="material-icons">person_add_alt</span>
+          Nuevo Candidato
+        </h3>
 
-    <div class="card mb-4">
+        <form (ngSubmit)="guardar()" #candidatoForm="ngForm">
+          <div class="mb-3">
+            <label class="form-label" for="nombres">Nombres Completos</label>
+            <input
+              type="text"
+              id="nombres"
+              name="nombres"
+              class="form-control"
+              placeholder="Ej. Luis David"
+              [(ngModel)]="nombres"
+              required>
+          </div>
 
-        <div class="card-body">
+          <div class="mb-3">
+            <label class="form-label" for="partido">Partido Político</label>
+            <input
+              type="text"
+              id="partido"
+              name="partido"
+              class="form-control"
+              placeholder="Ej. Partido de la Democracia"
+              [(ngModel)]="partido"
+              required>
+          </div>
 
-            <div class="row">
+          <div class="mb-4">
+            <label class="form-label" for="eleccionId">Elección</label>
+            <select
+              id="eleccionId"
+              name="eleccionId"
+              class="form-select"
+              [(ngModel)]="eleccionId"
+              required>
+              <option value="0" disabledSelected>Seleccione una elección...</option>
+              <option *ngFor="let e of elecciones" [value]="e.id">
+                {{ e.nombre }}
+              </option>
+            </select>
+          </div>
 
-                <div class="col-md-4">
-
-                    <input
-                        class="form-control"
-                        placeholder="Nombre"
-                        [(ngModel)]="nombres">
-
-                </div>
-
-                <div class="col-md-4">
-
-                    <input
-                        class="form-control"
-                        placeholder="Partido"
-                        [(ngModel)]="partido">
-
-                </div>
-
-                <div class="col-md-4">
-
-                    <select
-                        class="form-select"
-                        [(ngModel)]="eleccionId">
-
-                        <option [ngValue]="0">
-
-                            Seleccione elección
-
-                        </option>
-
-                        <option
-                            *ngFor="let e of elecciones"
-                            [ngValue]="e.id">
-
-                            {{e.nombre}}
-
-                        </option>
-
-                    </select>
-
-                </div>
-
-            </div>
-
-            <button
-                class="btn btn-warning mt-3"
-                (click)="guardar()">
-
-                Guardar
-
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary flex-fill" [disabled]="!candidatoForm.valid || eleccionId === 0">
+              <span class="material-icons">save</span>
+              Registrar
             </button>
-
-        </div>
-
+          </div>
+        </form>
+      </div>
     </div>
 
-    <table class="table table-bordered">
+    <!-- Lista de Candidatos -->
+    <div class="col-lg-8">
+      <div class="premium-card h-100">
+        <h3 class="card-title mb-4">
+          <span class="material-icons">recent_actors</span>
+          Candidatos Inscritos
+        </h3>
 
-        <thead>
-
-            <tr>
-
+        <div class="table-responsive">
+          <table class="table-premium">
+            <thead>
+              <tr>
                 <th>ID</th>
-                <th>Nombre</th>
+                <th>Candidato</th>
                 <th>Partido</th>
                 <th>Elección</th>
-
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-            <tr *ngFor="let c of candidatos">
-
-                <td>{{c.id}}</td>
-                <td>{{c.nombres}}</td>
-                <td>{{c.partido}}</td>
-                <td>{{c.eleccionId}}</td>
-
-            </tr>
-
-        </tbody>
-
-    </table>
-
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let c of candidatos">
+                <td><strong>#{{ c.id }}</strong></td>
+                <td>{{ c.nombres }}</td>
+                <td>
+                  <span class="badge-custom badge-custom-info">
+                    {{ c.partido }}
+                  </span>
+                </td>
+                <td>
+                  <span class="text-sm font-weight-medium">
+                    {{ getEleccionNombre(c.eleccionId) }}
+                  </span>
+                </td>
+              </tr>
+              <tr *ngIf="candidatos.length === 0">
+                <td colspan="4" class="text-center py-4 text-muted">
+                  No hay candidatos inscritos.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

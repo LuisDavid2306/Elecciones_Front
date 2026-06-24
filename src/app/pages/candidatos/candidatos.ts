@@ -87,4 +87,9 @@ export class CandidatosComponent implements OnInit {
         this.cargarCandidatos();
       });
   }
+
+  getEleccionNombre(id: number): string {
+    const eleccion = this.elecciones.find(e => e.id == id);
+    return eleccion ? eleccion.nombre : `Elección #${id}`;
+  }
 }

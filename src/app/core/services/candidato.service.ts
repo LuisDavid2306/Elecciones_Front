@@ -30,4 +30,10 @@ export class CandidatoService {
       request
     );
   }
+
+  listarPorEleccion(eleccionId: number): Observable<CandidatoResponse[]> {
+    return this.http.get<CandidatoResponse[]>(
+      `${environment.apiUrl}/api/candidatos/eleccion/${eleccionId}`
+    );
+  }
 }

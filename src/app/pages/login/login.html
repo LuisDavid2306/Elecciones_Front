@@ -1,57 +1,80 @@
-<div class="container mt-5">
-
-  <div class="row justify-content-center">
-
-    <div class="col-md-4">
-
-      <div class="card">
-
-        <div class="card-header text-center">
-          <h4>Iniciar Sesión</h4>
-        </div>
-
-        <div class="card-body">
-
-          <div class="mb-3">
-
-            <label class="form-label">
-              Usuario
-            </label>
-
-            <input
-              type="text"
-              class="form-control"
-              [(ngModel)]="username">
-
-          </div>
-
-          <div class="mb-3">
-
-            <label class="form-label">
-              Contraseña
-            </label>
-
-            <input
-              type="password"
-              class="form-control"
-              [(ngModel)]="password">
-
-          </div>
-
-          <button
-            class="btn btn-primary w-100"
-            (click)="login()">
-
-            Ingresar
-
-          </button>
-
-        </div>
-
-      </div>
-
+<div class="split-login-container animate-fade-in">
+  <!-- Left Column: Branding Section -->
+  <div class="brand-section">
+    <div class="brand-content text-center">
+      <img src="logo-onpe.png" alt="ONPE Logo" class="brand-logo-onpe">
+      <h1 class="brand-title">VotoDigital</h1>
+      <p class="brand-tagline">Sistema de Votación Electrónica</p>
+      <div class="brand-divider"></div>
+      <p class="brand-legal">Oficina Nacional de Procesos Electorales (ONPE)</p>
     </div>
-
   </div>
 
+  <!-- Right Column: Form Section -->
+  <div class="form-section">
+    <div class="form-content-wrapper animate-scale-in">
+      <div class="form-header mb-5">
+        <h2>Iniciar Sesión</h2>
+        <p class="text-muted">Ingrese sus credenciales oficiales para ingresar a la cabina.</p>
+      </div>
+
+      <form (ngSubmit)="login()" #loginForm="ngForm" class="login-form-custom">
+        <div class="input-field-custom mb-4">
+          <label class="field-label-custom" for="username">Usuario Registrado</label>
+          <div class="input-wrapper-custom">
+            <span class="material-icons field-icon">account_circle</span>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="input-control-custom"
+              placeholder="Nombre de usuario"
+              [(ngModel)]="username"
+              required>
+          </div>
+        </div>
+
+        <div class="input-field-custom mb-5">
+          <label class="field-label-custom" for="password">Contraseña</label>
+          <div class="input-wrapper-custom">
+            <span class="material-icons field-icon">lock</span>
+            <input
+              [type]="hidePassword ? 'password' : 'text'"
+              id="password"
+              name="password"
+              class="input-control-custom"
+              placeholder="Clave de seguridad"
+              [(ngModel)]="password"
+              required>
+            <button 
+              type="button" 
+              class="field-toggle-btn" 
+              (click)="togglePasswordVisibility()" 
+              tabindex="-1">
+              <span class="material-icons">{{ hidePassword ? 'visibility_off' : 'visibility' }}</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Error Alert -->
+        <div *ngIf="errorMessage" class="alert-inline-error mb-4 d-flex align-items-center">
+          <span class="material-icons me-2">error_outline</span>
+          <span>{{ errorMessage }}</span>
+        </div>
+
+        <button type="submit" class="btn-primary-custom" [disabled]="isLoading">
+          <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" *ngIf="isLoading"></span>
+          {{ isLoading ? 'VALIDANDO...' : 'INGRESAR AL PORTAL' }}
+        </button>
+
+        <div class="form-footer mt-4">
+          <span class="register-hint">¿No está registrado en el padrón?</span>
+          <a routerLink="/register" class="link-register-minimal">
+            Registrar cuenta de elector
+            <span class="material-icons">arrow_forward</span>
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

@@ -1,94 +1,122 @@
-<div class="container mt-4">
+<div class="page-container animate-fade-in">
+  <div class="page-header mb-4">
+    <div class="header-info">
+      <h1>Padrón Electoral 👥</h1>
+      <p class="text-muted">Registro y habilitación de ciudadanos aptos para votar.</p>
+    </div>
+  </div>
 
-    <h2>Ciudadanos</h2>
+  <div class="row g-4">
+    <!-- Formulario de Registro -->
+    <div class="col-lg-4">
+      <div class="premium-card">
+        <h3 class="card-title mb-4">
+          <span class="material-icons">person_add</span>
+          Registrar Ciudadano
+        </h3>
 
-    <div class="card mb-4">
+        <form (ngSubmit)="guardar()" #ciudadanoForm="ngForm">
+          <div class="mb-3">
+            <label class="form-label" for="dni">DNI (8 dígitos)</label>
+            <input
+              type="text"
+              id="dni"
+              name="dni"
+              class="form-control"
+              placeholder="Ingrese DNI"
+              maxlength="8"
+              [(ngModel)]="dni"
+              required>
+          </div>
 
-        <div class="card-body">
+          <div class="mb-3">
+            <label class="form-label" for="nombres">Nombres</label>
+            <input
+              type="text"
+              id="nombres"
+              name="nombres"
+              class="form-control"
+              placeholder="Nombres del ciudadano"
+              [(ngModel)]="nombres"
+              required>
+          </div>
 
-            <div class="row">
+          <div class="mb-3">
+            <label class="form-label" for="apellidos">Apellidos</label>
+            <input
+              type="text"
+              id="apellidos"
+              name="apellidos"
+              class="form-control"
+              placeholder="Apellidos del ciudadano"
+              [(ngModel)]="apellidos"
+              required>
+          </div>
 
-                <div class="col-md-3">
+          <div class="mb-4">
+            <label class="form-label" for="correo">Correo Electrónico</label>
+            <input
+              type="email"
+              id="correo"
+              name="correo"
+              class="form-control"
+              placeholder="correo@ejemplo.com"
+              [(ngModel)]="correo"
+              required>
+          </div>
 
-                    <input
-                        class="form-control"
-                        placeholder="DNI"
-                        [(ngModel)]="dni">
-
-                </div>
-
-                <div class="col-md-3">
-
-                    <input
-                        class="form-control"
-                        placeholder="Nombres"
-                        [(ngModel)]="nombres">
-
-                </div>
-
-                <div class="col-md-3">
-
-                    <input
-                        class="form-control"
-                        placeholder="Apellidos"
-                        [(ngModel)]="apellidos">
-
-                </div>
-
-                <div class="col-md-3">
-
-                    <input
-                        class="form-control"
-                        placeholder="Correo"
-                        [(ngModel)]="correo">
-
-                </div>
-
-            </div>
-
-            <button
-                class="btn btn-primary mt-3"
-                (click)="guardar()">
-
-                Guardar
-
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary flex-fill" [disabled]="!ciudadanoForm.valid">
+              <span class="material-icons">save</span>
+              Registrar
             </button>
-
-        </div>
-
+            <button type="button" class="btn btn-secondary" (click)="limpiar()">
+              <span class="material-icons">clear</span>
+              Limpiar
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
 
-    <table class="table table-bordered">
+    <!-- Padrón de Ciudadanos -->
+    <div class="col-lg-8">
+      <div class="premium-card h-100">
+        <h3 class="card-title mb-4">
+          <span class="material-icons">list_alt</span>
+          Ciudadanos Registrados
+        </h3>
 
-        <thead>
-
-            <tr>
-
-                <th>ID</th>
+        <div class="table-responsive">
+          <table class="table-premium">
+            <thead>
+              <tr>
                 <th>DNI</th>
-                <th>Nombres</th>
-                <th>Apellidos</th>
+                <th>Ciudadano</th>
                 <th>Correo</th>
-
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-            <tr
-                *ngFor="let c of ciudadanos">
-
-                <td>{{ c.id }}</td>
-                <td>{{ c.dni }}</td>
-                <td>{{ c.nombres }}</td>
-                <td>{{ c.apellidos }}</td>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let c of ciudadanos">
+                <td><strong>{{ c.dni }}</strong></td>
+                <td>{{ c.nombres }} {{ c.apellidos }}</td>
                 <td>{{ c.correo }}</td>
-
-            </tr>
-
-        </tbody>
-
-    </table>
-
+                <td>
+                  <span class="badge-custom" [ngClass]="c.habilitado ? 'badge-custom-success' : 'badge-custom-danger'">
+                    {{ c.habilitado ? 'Habilitado' : 'Inhabilitado' }}
+                  </span>
+                </td>
+              </tr>
+              <tr *ngIf="ciudadanos.length === 0">
+                <td colspan="4" class="text-center py-4 text-muted">
+                  No hay ciudadanos registrados en el padrón electoral.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
